@@ -1,8 +1,8 @@
 // split an array into 2 equal parts, with left array smaller if necessary
 function split(array) {
-  const rightChunk = Math.ceil(array.length / 2);
-  const leftArray = array.slice(0, -rightChunk);
-  const rightArray = array.slice(-rightChunk);
+  const leftChunk = Math.floor(array.length / 2);
+  const leftArray = array.slice(0, leftChunk);
+  const rightArray = array.slice(leftChunk);
   return { leftArray, rightArray };
 }
 
@@ -21,17 +21,12 @@ function merge(leftArray, rightArray) {
 
 function mergeSort(unsortedArray) {
   // base case
-  if (unsortedArray.length === 1) {
-    return [unsortedArray.pop()];
-  }
+  if (unsortedArray.length <= 1) return unsortedArray;
 
-  // split array
   const { leftArray, rightArray } = split(unsortedArray);
-
   const sortedLeftArray = mergeSort(leftArray);
   const sortedRightArray = mergeSort(rightArray);
 
-  // merge arrays
   return merge(sortedLeftArray, sortedRightArray);
 }
 
